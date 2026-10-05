@@ -1,0 +1,255 @@
+/* StudentRent - Custom Design System & Responsive Styles */
+:root {
+  --primary: #10B981;
+  --primary-hover: #059669;
+  --secondary: #0F172A;
+  --bg-main: #F8FAFC;
+  --text-main: #1E293B;
+  --status-green: #22C55E;
+  --status-blue: #3B82F6;
+  --status-amber: #F59E0B;
+  --status-orange: #F97316;
+  --status-red: #EF4444;
+  --status-gray: #94A3B8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Be Vietnam Pro', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Card Component - 12-16px radius, light shadow, thin border */
+.sr-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.05), 0 1px 3px -1px rgba(15, 23, 42, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.sr-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+  border-color: #CBD5E1;
+}
+
+/* Smooth page transition */
+.page-enter {
+  animation: fadeSlideIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
+  background-size: 200% 100%;
+  animation: skeletonLoading 1.4s infinite;
+  border-radius: 10px;
+}
+
+@keyframes skeletonLoading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Interactive Calendar 4 Core States (F-S03) */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.cal-day {
+  aspect-ratio: 1 / 1;
+  min-height: 44px;
+  padding: 3px 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  position: relative;
+  user-select: none;
+  transition: all 0.15s ease;
+  border: 1.5px solid transparent;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* 1. Xanh lá (#22C55E) -> Trống */
+.cal-available {
+  background-color: #DCFCE7;
+  color: #15803D;
+  border-color: #86EFAC;
+  cursor: pointer;
+}
+.cal-available:hover {
+  background-color: #BBF7D0;
+  border-color: #22C55E;
+  transform: scale(1.03);
+}
+
+/* 2. Vàng hổ phách (#F59E0B) -> Đang giữ chỗ – soft-lock 10 phút */
+.cal-softlock {
+  background-color: #FEF3C7;
+  color: #B45309;
+  border-color: #FCD34D;
+  cursor: not-allowed;
+}
+
+/* 3. Xanh dương (#3B82F6) -> Đã đặt – đã thanh toán */
+.cal-booked {
+  background-color: #DBEAFE;
+  color: #1D4ED8;
+  border-color: #93C5FD;
+  cursor: not-allowed;
+}
+
+/* 4. Xám -> Chủ đồ tự khóa */
+.cal-locked {
+  background-color: #F1F5F9;
+  color: #64748B;
+  border-color: #CBD5E1;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* Owner calendar management clickable override */
+.cal-owner-mode .cal-locked {
+  cursor: pointer;
+}
+.cal-owner-mode .cal-locked:hover {
+  background-color: #E2E8F0;
+  border-color: #94A3B8;
+}
+
+/* Selected date range for booking */
+.cal-selected {
+  background-color: #10B981 !important;
+  color: #FFFFFF !important;
+  border-color: #059669 !important;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.35);
+}
+
+.cal-in-range {
+  background-color: #A7F3D0 !important;
+  color: #065F46 !important;
+  border-color: #10B981 !important;
+}
+
+.cal-past {
+  background-color: #F8FAFC;
+  color: #CBD5E1;
+  border-color: #F1F5F9;
+  cursor: default;
+}
+
+/* Aspect Ratio 4:3 for Product Cards */
+.aspect-4-3 {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Status Badges */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Custom Range Slider */
+input[type="range"].sr-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 999px;
+  outline: none;
+}
+
+input[type="range"].sr-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Success Checkmark Animation */
+.checkmark-circle {
+  animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes scaleUp {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Mobile Filter Drawer */
+.mobile-drawer-backdrop {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+/* Responsive safeguards */
+@media (max-width: 767px) {
+  .cal-day {
+    aspect-ratio: auto;
+    min-height: 44px;
+    padding: 4px 1px;
+    font-size: 0.74rem;
+    border-radius: 8px;
+  }
+  .cal-grid {
+    gap: 4px;
+  }
+}
